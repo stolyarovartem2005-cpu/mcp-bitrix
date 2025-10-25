@@ -1,0 +1,33 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "MCP Bitrix24 Proxy",
+    "version": "1.0.0",
+    "description": "Tiny API that exposes a single endpoint to fetch Bitrix24 leads using your incoming webhook."
+  },
+  "servers": [
+    {
+      "url": "https://mcp-bitrix.onrender.com"
+    }
+  ],
+  "paths": {
+    "/bitrix": {
+      "get": {
+        "summary": "Get Bitrix24 leads via incoming webhook",
+        "operationId": "getBitrixLeads",
+        "responses": {
+          "200": {
+            "description": "List of leads or Bitrix API object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
