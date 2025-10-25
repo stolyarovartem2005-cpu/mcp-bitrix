@@ -1,0 +1,3 @@
+# Скопіюй цей файл у .env і встав свій webhook із Bitrix24
+BITRIX_WEBHOOK=https://yourcompany.bitrix24.ua/rest/1/xxxxxxxxxxxxxxx
+PORT=10000
