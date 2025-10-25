@@ -3,17 +3,19 @@
   "info": {
     "title": "MCP Bitrix Connector",
     "version": "1.0.0",
-    "description": "API-проксі для інтеграції між ChatGPT і Bitrix24 через Render-сервер."
+    "description": "API-проксі між ChatGPT та Bitrix24 через Render-сервер."
   },
   "servers": [
     {
-      "url": "https://mcp-bitrix.onrender.com"
+      "url": "https://mcp-bitrix.onrender.com/",
+      "description": "Головний сервер Render"
     }
   ],
   "paths": {
     "/health": {
       "get": {
         "summary": "Перевірка стану сервера",
+        "description": "Повертає статус про працездатність сервера.",
         "responses": {
           "200": {
             "description": "Сервер працює"
@@ -23,7 +25,8 @@
     },
     "/bitrix": {
       "post": {
-        "summary": "Виконати запит до Bitrix24 через сервер-проксі",
+        "summary": "Виконати запит до Bitrix24",
+        "description": "Відправляє запит до Bitrix24 через Render-проксі.",
         "requestBody": {
           "required": true,
           "content": {
@@ -50,7 +53,7 @@
         },
         "responses": {
           "200": {
-            "description": "Відповідь Bitrix24 API"
+            "description": "Відповідь від Bitrix24 API"
           }
         }
       }
