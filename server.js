@@ -52,3 +52,5 @@ app.post("/bitrix", async (req, res) => {
     res.status(500).json({ error: "Не вдалося виконати POST-запит до Bitrix24" });
   }
 });
+
+app.listen(PORT, () => console.log(`🚀 Server is running on port ${PORT}`));
