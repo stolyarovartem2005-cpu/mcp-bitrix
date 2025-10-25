@@ -1,9 +1,9 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.0.1",
   "info": {
-    "title": "MCP Bitrix24 Proxy",
+    "title": "MCP Bitrix Connector",
     "version": "1.0.0",
-    "description": "Tiny API that exposes a single endpoint to fetch Bitrix24 leads using your incoming webhook."
+    "description": "API-проксі для інтеграції між ChatGPT і Bitrix24 через Render-сервер."
   },
   "servers": [
     {
@@ -11,20 +11,46 @@
     }
   ],
   "paths": {
-    "/bitrix": {
+    "/health": {
       "get": {
-        "summary": "Get Bitrix24 leads via incoming webhook",
-        "operationId": "getBitrixLeads",
+        "summary": "Перевірка стану сервера",
         "responses": {
           "200": {
-            "description": "List of leads or Bitrix API object",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
+            "description": "Сервер працює"
+          }
+        }
+      }
+    },
+    "/bitrix": {
+      "post": {
+        "summary": "Виконати запит до Bitrix24 через сервер-проксі",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "method": {
+                    "type": "string",
+                    "example": "crm.lead.list"
+                  },
+                  "params": {
+                    "type": "object",
+                    "example": {
+                      "select": ["ID", "TITLE"],
+                      "filter": {"STATUS_ID": "NEW"}
+                    }
+                  }
+                },
+                "required": ["method"]
               }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Відповідь Bitrix24 API"
           }
         }
       }
