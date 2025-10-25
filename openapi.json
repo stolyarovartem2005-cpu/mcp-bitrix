@@ -1,32 +1,34 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1.0",
   "info": {
     "title": "MCP Bitrix Connector",
-    "version": "1.0.0",
-    "description": "API-проксі між ChatGPT та Bitrix24 через Render-сервер."
+    "version": "1.0.1",
+    "description": "API-проксі для інтеграції між ChatGPT і Bitrix24 через Render."
   },
   "servers": [
     {
       "url": "https://mcp-bitrix.onrender.com/",
-      "description": "Головний сервер Render"
+      "description": "Render сервер MCP Bitrix"
     }
   ],
   "paths": {
     "/health": {
       "get": {
+        "operationId": "get_health",
         "summary": "Перевірка стану сервера",
-        "description": "Повертає статус про працездатність сервера.",
+        "description": "Повертає підтвердження, що сервер Render працює.",
         "responses": {
           "200": {
-            "description": "Сервер працює"
+            "description": "Сервер працює успішно"
           }
         }
       }
     },
     "/bitrix": {
       "post": {
+        "operationId": "post_bitrix",
         "summary": "Виконати запит до Bitrix24",
-        "description": "Відправляє запит до Bitrix24 через Render-проксі.",
+        "description": "Надсилає POST-запит до Bitrix24 через сервер-проксі.",
         "requestBody": {
           "required": true,
           "content": {
@@ -42,7 +44,7 @@
                     "type": "object",
                     "example": {
                       "select": ["ID", "TITLE"],
-                      "filter": {"STATUS_ID": "NEW"}
+                      "filter": { "STATUS_ID": "NEW" }
                     }
                   }
                 },
