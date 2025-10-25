@@ -1,34 +1,45 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "MCP Bitrix Connector",
-    "version": "1.0.1",
-    "description": "API-проксі для інтеграції між ChatGPT і Bitrix24 через Render."
+    "title": "Bitrix24 MCP API",
+    "version": "1.0.0",
+    "description": "Proxy API for Bitrix24 to be used with ChatGPT Actions."
   },
   "servers": [
     {
-      "url": "https://mcp-bitrix.onrender.com/",
-      "description": "Render сервер MCP Bitrix"
+      "url": "https://mcp-bitrix.onrender.com"
     }
   ],
   "paths": {
     "/health": {
       "get": {
+        "summary": "Check server health status",
         "operationId": "get_health",
-        "summary": "Перевірка стану сервера",
-        "description": "Повертає підтвердження, що сервер Render працює.",
         "responses": {
           "200": {
-            "description": "Сервер працює успішно"
+            "description": "Server is alive",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "properties": { "status": { "type": "string" } } }
+              }
+            }
           }
         }
       }
     },
     "/bitrix": {
+      "get": {
+        "summary": "Fetch list of leads from Bitrix24",
+        "operationId": "get_bitrix",
+        "responses": {
+          "200": {
+            "description": "List of leads from Bitrix24"
+          }
+        }
+      },
       "post": {
+        "summary": "Call any Bitrix24 API method",
         "operationId": "post_bitrix",
-        "summary": "Виконати запит до Bitrix24",
-        "description": "Надсилає POST-запит до Bitrix24 через сервер-проксі.",
         "requestBody": {
           "required": true,
           "content": {
@@ -36,17 +47,8 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "method": {
-                    "type": "string",
-                    "example": "crm.lead.list"
-                  },
-                  "params": {
-                    "type": "object",
-                    "example": {
-                      "select": ["ID", "TITLE"],
-                      "filter": { "STATUS_ID": "NEW" }
-                    }
-                  }
+                  "method": { "type": "string", "example": "crm.lead.list" },
+                  "params": { "type": "object", "example": { "filter": { "STATUS_ID": "NEW" } } }
                 },
                 "required": ["method"]
               }
@@ -55,7 +57,7 @@
         },
         "responses": {
           "200": {
-            "description": "Відповідь від Bitrix24 API"
+            "description": "Bitrix24 API response"
           }
         }
       }
